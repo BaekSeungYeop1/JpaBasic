@@ -27,6 +27,11 @@ public class JpaMain {
             em.persist(member);
             System.out.println("=======AFTER========");
 
+            // 준영속 상태
+            em.detach(member); // 특정 엔티티만 준영속 상태로 전환
+            em.clear(); // 영속성 컨텍스트를 완전히 초기화
+            em.close(); // 영속성 컨테스트 종료
+
             //1차 캐시에서 조회
             Member findMember1 = em.find(Member.class, 100L);
             Member findMember2 = em.find(Member.class, 100L);
