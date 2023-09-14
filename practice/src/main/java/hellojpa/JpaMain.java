@@ -22,7 +22,7 @@ public class JpaMain {
 
             Member member = new Member();
             member.setName("member1");
-            member.setTeam(team);
+            member.changeTeam(team);
             em.persist(member);
 
             em.flush();
