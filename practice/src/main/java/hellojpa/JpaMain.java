@@ -3,6 +3,7 @@ package hellojpa;
 import jdk.swing.interop.SwingInterOpUtils;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -16,19 +17,14 @@ public class JpaMain {
         tx.begin();
         try{
 
-            Movie movie = new Movie();
-            movie.setDirector("스티븐");
-            movie.setActor("제라드");
-            movie.setName("공허");
-            movie.setPrice(10000);
-
-            em.persist(movie);
+            Member member = new Member();
+            member.setName("user1");
+            member.setCreateBy("kim");
+            member.setCreateDate(LocalDateTime.now());
 
             em.flush();
             em.clear();
-            
-            Movie findMovie = em.find(Movie.class, movie.getId());
-            System.out.println("findMovie = " + findMovie);
+
 
             tx.commit();
         }catch (Exception e){
