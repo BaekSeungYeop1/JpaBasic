@@ -1,3 +1,4 @@
+import domain.Book;
 import domain.Member;
 import domain.Order;
 import domain.OrderItem;
@@ -17,8 +18,11 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try{
-            Order order = new Order();
-            order.addOrderItem(new OrderItem());
+            Book book = new Book();
+            book.setAuthor("홍길동");
+            book.setName("홍길동전");
+
+            em.persist(book);
             tx.commit();
         }catch (Exception e){
             tx.rollback();
