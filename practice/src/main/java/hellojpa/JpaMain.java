@@ -16,32 +16,24 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try{
+            Team team = new Team();
+            team.setName("taemA");
+            em.persist(team);
 
             Member member1 = new Member();
             member1.setName("user1");
-
-            Member member2 = new Member();
-            member2.setName("user2");
-
+            member1.changeTeam(team);
             em.persist(member1);
-            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            Member findMember1 = em.find(Member.class, member1.getId());
-            Member findMember2 = em.getReference(Member.class,member1.getId());
-            Member findMember3 = em.getReference(Member.class,member2.getId());
-//            System.out.println("findMember.getId() = " + findMember.getId());
-//            System.out.println("findMember.getName() = " + findMember.getName());
-            System.out.println("findMember1 == findMember2 : " + (findMember1==findMember2)); // true
-            System.out.println("findMember1 == findMember3 : " + (findMember1==findMember3)); // false : 프록시 객체이므로 타입이 다름 -> 타입 비교는 instanceof 활용
+            Member m = em.find(Member.class,member1.getId());
 
-            em.close();
-            findMember3.getName();
+            System.out.println("=============");
+            System.out.println("teamName = " + m.getTeam().getName());
+            System.out.println("=============");
 
-            // 프록시 초기화 여부확인
-            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(findMember3));
 
             tx.commit();
         }catch (Exception e){
