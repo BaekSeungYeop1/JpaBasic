@@ -3,7 +3,7 @@ package hellojpa;
 import javax.persistence.*;
 
 @Entity
-public class Member extends BaseEntity{
+public class Member{
 
     @Id
     @GeneratedValue
@@ -13,13 +13,11 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID")
-    Team team;
+    @Embedded
+    private Period workPeriod;
 
-    @OneToOne
-    @JoinColumn(name = "Locker_ID")
-    private Locker locker;
+    @Embedded
+    private Address homeAddress;
 
     public Long getId() {
         return id;
@@ -37,12 +35,19 @@ public class Member extends BaseEntity{
         this.name = name;
     }
 
-    public Team getTeam() {
-        return team;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void changeTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 }

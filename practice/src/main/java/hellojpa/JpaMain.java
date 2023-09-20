@@ -16,23 +16,23 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try{
-            Child child1 = new Child();
-            Child child2 = new Child();
-            child1.setName("userA");
-            child2.setName("userB");
 
-           Parent parent = new Parent();
-           parent.addChild(child1);
-           parent.addChild(child2);
+            Address address = new Address("city", "street", "10000");
 
-           em.persist(parent);
+            Member member1 = new Member();
+            member1.setName("member1");
+            member1.setHomeAddress(address);
+            member1.setWorkPeriod(new Period());
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setName("member2");
+            member2.setHomeAddress(address);
+            member2.setWorkPeriod(new Period());
+            em.persist(member2);
 
             em.flush();
             em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-            em.remove(findParent);
-//            findParent.getChildList().remove(0);
 
             tx.commit();
         }catch (Exception e){
