@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="example1" />
         <module name="practice" />
+        <module name="JPQL" />
         <module name="JpaBaicPractice" />
       </profile>
     </annotationProcessing>
