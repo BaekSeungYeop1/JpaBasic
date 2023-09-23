@@ -3,6 +3,7 @@ package jpql;
 import jpql.Team;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 
 @Entity
 public class Member {
@@ -15,9 +16,14 @@ public class Member {
 
     private int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    public void changeTeam(Team team){
+        this.team = team;
+        team.getMemberList().add(this);
+    }
 
     public Long getId() {
         return id;
@@ -49,5 +55,14 @@ public class Member {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
